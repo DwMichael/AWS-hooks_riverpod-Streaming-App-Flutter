@@ -1,37 +1,13 @@
+import 'package:flixo_app/extension/form_validation.dart';
 import 'package:flixo_app/pages/authentication/sign_up.dart';
+import 'package:flixo_app/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-Widget _textField(TextEditingController controller, String labelText,
-    ValueNotifier<String> field) {
-  return TextFormField(
-    autocorrect: true,
-    cursorColor: Colors.black,
-    textAlign: TextAlign.left,
-    controller: controller,
-    validator: (val) => val!.isEmpty ? "UWAGA wypełnij to pole!" : null,
-    decoration: InputDecoration(
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      filled: true,
-      helperMaxLines: 1,
-      fillColor: Colors.white,
-      labelText: labelText,
-      focusColor: const Color(0xFF00BDC6),
-    ),
-    onSaved: (value) => field.value = value!,
-  );
-}
+import '../../widget/authentication/custom_form.dart';
 
 class LoginPage extends HookConsumerWidget {
   const LoginPage({super.key});
-  void saveForm(GlobalKey<FormState> formSingupKey) {
-    if (formSingupKey.currentState!.validate()) {
-      formSingupKey.currentState!.save();
-    }
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -71,12 +47,34 @@ class LoginPage extends HookConsumerWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 50, vertical: 20),
-                    child: _textField(_emailController, "email", _field1),
+                    child: CustomForm(
+                      obscureText: false,
+                      controller: _emailController,
+                      hintText: "Email",
+                      validator: (val) => val!.isEmpty
+                          ? "UWAGA wypełnij to pole!"
+                          : !val.isValidEmail
+                              ? "Wpisz poprawny mail"
+                              : null,
+                      field: _field1,
+                      labelText: "Email",
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 50, vertical: 20),
-                    child: _textField(_passwordController, "password", _field2),
+                    child: CustomForm(
+                      obscureText: true,
+                      controller: _passwordController,
+                      hintText: "Password",
+                      validator: (val) => val!.isEmpty
+                          ? "UWAGA wypełnij to pole!"
+                          : !val.isValidPassword
+                              ? "Wpisz poprawne hasło"
+                              : null,
+                      field: _field2,
+                      labelText: "Password",
+                    ),
                   ),
                   SingleChildScrollView(
                     physics: const NeverScrollableScrollPhysics(),
@@ -93,7 +91,16 @@ class LoginPage extends HookConsumerWidget {
                                 elevation: 10,
                               ),
                               onPressed: () {
-                                saveForm(_formLoginKey);
+                                _formLoginKey.currentState!.validate()
+                                    ? Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              HomePage(
+                                            title: 'HomePage',
+                                          ),
+                                        ),
+                                      )
+                                    : null;
                               },
                               child: const Text("LogIn"),
                             ),

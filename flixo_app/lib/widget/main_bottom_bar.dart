@@ -14,29 +14,26 @@ class MainBottomBar extends StatelessWidget {
       child: BottomAppBar(
         elevation: isElevated ? null : 0.0,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             IconButton(
-              tooltip: 'Open popup menu',
-              icon: const Icon(Icons.more_vert),
-              onPressed: () {
-                final SnackBar snackBar = SnackBar(
-                  content: const Text('Yay! A SnackBar!'),
-                  action: SnackBarAction(
-                    label: 'Undo',
-                    onPressed: () {},
-                  ),
-                );
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              },
-            ),
+                tooltip: 'Go to home page',
+                icon: const Icon(Icons.home),
+                onPressed: () {}),
             IconButton(
               tooltip: 'Search',
               icon: const Icon(Icons.search),
               onPressed: () {},
             ),
             IconButton(
-              tooltip: 'Favorite',
-              icon: const Icon(Icons.favorite),
+              tooltip: 'Downloads',
+              icon: const Icon(Icons.download),
+              onPressed: () {},
+            ),
+            IconButton(
+              tooltip: 'More',
+              icon: const Icon(Icons.menu),
               onPressed: () {},
             ),
           ],
