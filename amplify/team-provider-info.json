@@ -10,6 +10,11 @@
       "StackName": "amplify-flixo-staging-174914",
       "StackId": "arn:aws:cloudformation:eu-west-1:667483570784:stack/amplify-flixo-staging-174914/a8d75fb0-e45a-11ed-8ab6-06457cf8240d",
       "AmplifyAppId": "d8cmlte5p3ftr"
+    },
+    "categories": {
+      "auth": {
+        "flixo7767626f": {}
+      }
     }
   }
 }
