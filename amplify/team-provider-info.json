@@ -1,0 +1,15 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-flixo-staging-174914-authRole",
+      "UnauthRoleArn": "arn:aws:iam::667483570784:role/amplify-flixo-staging-174914-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::667483570784:role/amplify-flixo-staging-174914-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-flixo-staging-174914-deployment",
+      "UnauthRoleName": "amplify-flixo-staging-174914-unauthRole",
+      "StackName": "amplify-flixo-staging-174914",
+      "StackId": "arn:aws:cloudformation:eu-west-1:667483570784:stack/amplify-flixo-staging-174914/a8d75fb0-e45a-11ed-8ab6-06457cf8240d",
+      "AmplifyAppId": "d8cmlte5p3ftr"
+    }
+  }
+}
