@@ -38,9 +38,6 @@ Future<void> _configureAmplify() async {
   ]);
   await Amplify.configure(amplifyconfig);
 }
-// void main() {
-//   runApp(const ProviderScope(child: MyApp()));
-// }
 
 ThemeManager _themeManager = ThemeManager();
 
