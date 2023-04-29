@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../pages/main_pages/search_page.dart';
+
 class MainBottomBar extends StatelessWidget {
   const MainBottomBar(
       {required this.isVisible, required this.isElevated, super.key});
@@ -24,7 +26,9 @@ class MainBottomBar extends StatelessWidget {
             IconButton(
               tooltip: 'Search',
               icon: const Icon(Icons.search),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, SearchPage.routName);
+              },
             ),
             IconButton(
               tooltip: 'Downloads',

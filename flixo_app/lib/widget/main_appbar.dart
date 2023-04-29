@@ -7,6 +7,7 @@ class MainAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     const double fontSize = 20;
     return AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: Colors.black87,
       title: Padding(
         padding: const EdgeInsets.symmetric(

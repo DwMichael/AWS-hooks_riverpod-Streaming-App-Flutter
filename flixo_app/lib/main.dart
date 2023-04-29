@@ -2,6 +2,7 @@
 import 'package:flixo_app/pages/authentication/login_page.dart';
 import 'package:flixo_app/pages/authentication/sign_up.dart';
 import 'package:flixo_app/pages/main_pages/home_page.dart';
+import 'package:flixo_app/pages/main_pages/search_page.dart';
 
 import 'package:flixo_app/theme/theme.dart';
 import 'package:flixo_app/theme/theme_manager.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => HomePage(title: "Home Page"),
         SignUpPage.routeName: (context) => const SignUpPage(),
         HomePage.routName: (context) => HomePage(title: "Home Page"),
+        SearchPage.routName: (context) => SearchPage(title: "Search Page")
       },
     );
   }
