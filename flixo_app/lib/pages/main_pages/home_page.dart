@@ -1,5 +1,3 @@
-import 'package:flixo_app/widget/main_appbar.dart';
-import 'package:flixo_app/widget/main_bottom_bar.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -19,18 +17,6 @@ class HomePage extends StatelessWidget {
             myProduct: myProduct, categoryIndex: categoryIndex);
       },
     );
-    // bottomNavigationBar: const MainBottomBar(
-    //   isVisible: true,
-    //   isElevated: true,
-    // ),
-    // floatingActionButton: isVisible
-    //     ? FloatingActionButton(
-    //         onPressed: () {},
-    //         tooltip: 'Add New Item',
-    //         elevation: true ? 10.0 : null,
-    //         child: const Icon(Icons.add),
-    //       )
-    //     : null,
   }
 }
 
