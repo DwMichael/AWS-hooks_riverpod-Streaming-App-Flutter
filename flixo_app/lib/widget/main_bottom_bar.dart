@@ -1,3 +1,4 @@
+import 'package:flixo_app/pages/main_pages/download_page.dart';
 import 'package:flutter/material.dart';
 
 import '../pages/main_pages/search_page.dart';
@@ -22,7 +23,9 @@ class MainBottomBar extends StatelessWidget {
             IconButton(
                 tooltip: 'Go to home page',
                 icon: const Icon(Icons.home),
-                onPressed: () {}),
+                onPressed: () {
+                  Navigator.popUntil(context, (route) => route.isFirst);
+                }),
             IconButton(
               tooltip: 'Search',
               icon: const Icon(Icons.search),
@@ -33,7 +36,9 @@ class MainBottomBar extends StatelessWidget {
             IconButton(
               tooltip: 'Downloads',
               icon: const Icon(Icons.download),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, DownLoadPage.routName);
+              },
             ),
             IconButton(
               tooltip: 'More',

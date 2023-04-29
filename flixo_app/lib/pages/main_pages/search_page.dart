@@ -53,27 +53,27 @@ class SearchPage extends StatelessWidget {
                 ),
               ),
             ),
-            GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 2,
-                  crossAxisSpacing: 2,
-                ),
-                itemCount: myProduct2.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return SizedBox(
-                    width: 100,
-                    height: 100,
-                    child: Card(
-                      color: Colors.black,
-                      child: ListTile(
-                        title: Text('Entry ${myProduct2[index][index]}',
-                            style: const TextStyle(color: Colors.white)),
-                      ),
-                    ),
-                  );
-                }),
+            // GridView.builder(
+            //     physics: const NeverScrollableScrollPhysics(),
+            //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            //       crossAxisCount: 3,
+            //       mainAxisSpacing: 2,
+            //       crossAxisSpacing: 2,
+            //     ),
+            //     itemCount: myProduct2.length,
+            //     itemBuilder: (BuildContext context, int index) {
+            //       return SizedBox(
+            //         width: 100,
+            //         height: 100,
+            //         child: Card(
+            //           color: Colors.black,
+            //           child: ListTile(
+            //             title: Text('Entry ${myProduct2[index][index]}',
+            //                 style: const TextStyle(color: Colors.white)),
+            //           ),
+            //         ),
+            //       );
+            //     }),
           ],
         ),
       ),
