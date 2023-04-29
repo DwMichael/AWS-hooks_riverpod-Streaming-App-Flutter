@@ -10,6 +10,7 @@ import 'package:flixo_app/pages/main_pages/search_page.dart';
 
 import 'package:flixo_app/theme/theme.dart';
 import 'package:flixo_app/theme/theme_manager.dart';
+import 'package:flixo_app/widget/main_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'amplifyconfiguration.dart';
@@ -56,11 +57,14 @@ class MyApp extends StatelessWidget {
         builder: Authenticator.builder(),
         routes: {
           // '/': (context) => LoginPage(),
-          '/': (context) => HomePage(title: "Home Page"),
-          SignUpPage.routeName: (context) => const SignUpPage(),
-          HomePage.routName: (context) => HomePage(title: "Home Page"),
-          SearchPage.routName: (context) => SearchPage(title: "Search Page"),
-          DownLoadPage.routName: (context) => DownLoadPage()
+          '/': (context) => MainBottomBar(
+                isElevated: true,
+                isVisible: true,
+              ),
+          // SignUpPage.routeName: (context) => const SignUpPage(),
+          // HomePage.routName: (context) => HomePage(title: "Home Page"),
+          // SearchPage.routName: (context) => SearchPage(title: "Search Page"),
+          // DownLoadPage.routName: (context) => DownLoadPage()
         },
       ),
     );

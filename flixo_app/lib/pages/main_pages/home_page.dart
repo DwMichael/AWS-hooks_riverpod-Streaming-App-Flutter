@@ -11,32 +11,26 @@ class HomePage extends StatelessWidget {
   final bool isVisible = false;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(70.0),
-        child: MainAppBar(),
-      ),
-      body: ListView.builder(
-        scrollDirection: Axis.vertical,
-        itemCount: myProduct.length,
-        itemBuilder: (BuildContext context, int categoryIndex) {
-          return CategoryColumn(
-              myProduct: myProduct, categoryIndex: categoryIndex);
-        },
-      ),
-      bottomNavigationBar: const MainBottomBar(
-        isVisible: true,
-        isElevated: true,
-      ),
-      floatingActionButton: isVisible
-          ? FloatingActionButton(
-              onPressed: () {},
-              tooltip: 'Add New Item',
-              elevation: true ? 10.0 : null,
-              child: const Icon(Icons.add),
-            )
-          : null,
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      itemCount: myProduct.length,
+      itemBuilder: (BuildContext context, int categoryIndex) {
+        return CategoryColumn(
+            myProduct: myProduct, categoryIndex: categoryIndex);
+      },
     );
+    // bottomNavigationBar: const MainBottomBar(
+    //   isVisible: true,
+    //   isElevated: true,
+    // ),
+    // floatingActionButton: isVisible
+    //     ? FloatingActionButton(
+    //         onPressed: () {},
+    //         tooltip: 'Add New Item',
+    //         elevation: true ? 10.0 : null,
+    //         child: const Icon(Icons.add),
+    //       )
+    //     : null,
   }
 }
 
