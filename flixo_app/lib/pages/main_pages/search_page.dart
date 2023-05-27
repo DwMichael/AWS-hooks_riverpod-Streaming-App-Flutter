@@ -55,10 +55,10 @@ class SearchPage extends StatelessWidget {
                 color: Colors.grey,
                 borderRadius: BorderRadius.circular(5),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Row(
-                  children: <Widget>[const Text("FILTR")],
+                  children: <Widget>[Text("FILTR")],
                 ),
               ),
             ),
