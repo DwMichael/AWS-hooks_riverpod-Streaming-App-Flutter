@@ -1,16 +1,35 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tmdb_api/tmdb_api.dart';
 
-class SearchPage extends StatelessWidget {
+import '../../api/tmdb_api.dart';
+import '../../model/genre.dart';
+import '../../model/movie.dart';
+import '../../provider/provider.dart';
+
+class SearchPage extends HookConsumerWidget {
   static const routName = "/searchpage";
   SearchPage({required this.title, super.key});
   final String title;
-  final List<Map> myProduct2 =
-      List.generate(20, (index) => {"id": index, "name": "Product $index"});
+
   final bool isVisible = false;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final TmdbApi tmdbApi = ref.watch(tmdbApiProvider);
+    final AsyncSnapshot<List<Movie>> randomMovies =
+        useFuture(useMemoized(() => tmdbApi.getMovies()));
+    if (randomMovies.data == null) {
+      return const Align(
+        alignment: Alignment.center,
+        child: CircularProgressIndicator(),
+      );
+    }
+
     final size = MediaQuery.of(context).size;
     return SingleChildScrollView(
+      physics: const NeverScrollableScrollPhysics(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -22,10 +41,10 @@ class SearchPage extends StatelessWidget {
               child: TextField(
                 autocorrect: true,
                 decoration: InputDecoration(
-                  prefixIcon: const Padding(
-                    padding: EdgeInsets.only(top: 5.0, left: 10),
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.only(top: 5.0, left: 10),
                     child: Column(
-                      children: <Widget>[
+                      children: const <Widget>[
                         Icon(Icons.search),
                         Text(
                           "Search",
@@ -55,32 +74,31 @@ class SearchPage extends StatelessWidget {
                 color: Colors.grey,
                 borderRadius: BorderRadius.circular(5),
               ),
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Row(
-                  children: <Widget>[Text("FILTR")],
+                  children: const <Widget>[Text("FILTR")],
                 ),
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 10),
             child: GridView.builder(
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 3,
-                  crossAxisSpacing: 5,
-                  mainAxisExtent: 300),
+                crossAxisCount: 3,
+                mainAxisSpacing: 20,
+                crossAxisSpacing: 10,
+                mainAxisExtent: 300,
+              ),
               shrinkWrap: true,
-              itemCount: myProduct2.length,
+              itemCount: 6,
               itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  color: Colors.black,
-                  child: ListTile(
-                    title: Text('Entry ${myProduct2[index][index]}',
-                        style: const TextStyle(color: Colors.white)),
-                  ),
+                return CachedNetworkImage(
+                  fit: BoxFit.cover,
+                  imageUrl:
+                      'http://image.tmdb.org/t/p/w500${randomMovies.data![index].posterPath}',
                 );
               },
             ),

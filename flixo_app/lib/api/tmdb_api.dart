@@ -30,7 +30,18 @@ class TmdbApi {
     Map result = await tmdbWithCustomLogs.v3.discover.getMovies(
       withGenres: genreId.toString(),
     );
-    print(result);
+
+    return List<Movie>.from(
+        result['results'].map((movie) => Movie.fromJson(movie)));
+  }
+
+  Future<List<Movie>> getMovies() async {
+    TMDB tmdbWithCustomLogs = TMDB(
+      ApiKeys(apiKey, readaccesstoken),
+      logConfig: const ConfigLogger(showLogs: true, showErrorLogs: true),
+      defaultLanguage: 'pl-PL',
+    );
+    Map result = await tmdbWithCustomLogs.v3.discover.getMovies();
     return List<Movie>.from(
         result['results'].map((movie) => Movie.fromJson(movie)));
   }
