@@ -95,22 +95,33 @@ class MainMoviesRow extends HookConsumerWidget {
         padding: const EdgeInsets.only(left: 10, top: 15, bottom: 15),
         child: SizedBox(
           height: 250,
-          child: CarouselSlider(
-            items: movies.data!
-                .map((item) => Container(
-                      child: Center(
-                          child: Image.network(item.posterPath.toString(),
-                              fit: BoxFit.cover, width: 1000)),
-                    ))
-                .toList(),
-            options: CarouselOptions(
-                autoPlay: true,
-                autoPlayInterval: Duration(seconds: 8),
-                enlargeCenterPage: true,
-                aspectRatio: 2.0,
-                onPageChanged: (index, reason) {
-                  _current.value = index;
-                }),
+          child: ListView(
+            children: [
+              CarouselSlider(
+                items: movies.data!
+                    .map(
+                      (item) => Center(
+                          child: Material(
+                        borderRadius: BorderRadius.circular(20),
+                        child: CachedNetworkImage(
+                          width: 250,
+                          imageUrl:
+                              'http://image.tmdb.org/t/p/w500${item.posterPath}',
+                          fit: BoxFit.cover,
+                        ),
+                      )),
+                    )
+                    .toList(),
+                options: CarouselOptions(
+                    autoPlay: true,
+                    autoPlayInterval: const Duration(seconds: 8),
+                    enlargeCenterPage: true,
+                    aspectRatio: 2.0,
+                    onPageChanged: (index, reason) {
+                      _current.value = index;
+                    }),
+              ),
+            ],
           ),
 
           //  ListView.builder(
