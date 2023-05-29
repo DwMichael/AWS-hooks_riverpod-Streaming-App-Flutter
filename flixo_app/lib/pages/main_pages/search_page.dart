@@ -22,10 +22,10 @@ class SearchPage extends StatelessWidget {
               child: TextField(
                 autocorrect: true,
                 decoration: InputDecoration(
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.only(top: 5.0, left: 10),
+                  prefixIcon: const Padding(
+                    padding: EdgeInsets.only(top: 5.0, left: 10),
                     child: Column(
-                      children: const <Widget>[
+                      children: <Widget>[
                         Icon(Icons.search),
                         Text(
                           "Search",

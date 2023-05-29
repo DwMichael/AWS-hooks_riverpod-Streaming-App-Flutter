@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
         builder: Authenticator.builder(),
         routes: {
           // '/': (context) => LoginPage(),
-          '/': (context) => MainBottomBar(
+          '/': (context) => const MainBottomBar(
                 isElevated: true,
                 isVisible: true,
               ),
