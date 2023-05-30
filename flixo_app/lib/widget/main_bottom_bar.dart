@@ -19,7 +19,7 @@ class MainBottomBar extends StatefulWidget {
 class _MainBottomBarState extends State<MainBottomBar> {
   int _currentIndex = 0;
   final Map<int, Widget> _pages = {
-    0: HomePage(
+    0: const HomePage(
       title: "Home Page",
     ),
     1: SearchPage(
@@ -33,7 +33,7 @@ class _MainBottomBarState extends State<MainBottomBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(70.0),
+        preferredSize: Size.fromHeight(50.0),
         child: MainAppBar(),
       ),
       body: _pages[_currentIndex],

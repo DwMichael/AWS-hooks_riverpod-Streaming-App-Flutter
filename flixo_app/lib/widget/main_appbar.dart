@@ -5,38 +5,28 @@ class MainAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double fontSize = 20;
     return AppBar(
       automaticallyImplyLeading: false,
       backgroundColor: Colors.black87,
       title: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: 10.0,
+          horizontal: 5.0,
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            CircleAvatar(
-              child: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.person,
-                  color: Colors.black,
+            SizedBox(
+              height: 30,
+              child: CircleAvatar(
+                child: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    size: 15,
+                    Icons.person,
+                    color: Colors.black,
+                  ),
                 ),
               ),
-            ),
-            TextButton(
-              onPressed: () {},
-              child: const Text("TV", style: TextStyle(fontSize: fontSize)),
-            ),
-            TextButton(
-              onPressed: () {},
-              child: const Text("Movies", style: TextStyle(fontSize: fontSize)),
-            ),
-            TextButton(
-              onPressed: () {},
-              child:
-                  const Text("Favorites", style: TextStyle(fontSize: fontSize)),
             ),
           ],
         ),

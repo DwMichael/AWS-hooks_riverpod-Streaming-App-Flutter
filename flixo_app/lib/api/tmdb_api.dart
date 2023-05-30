@@ -58,18 +58,19 @@ class TmdbApi {
         trendingResult['results'].map((movie) => Movie.fromJson(movie)));
   }
 
-  Future<List> getTopRatedMovies() async {
+  Future<List<Movie>> getTopRatedMovies() async {
     TMDB tmdbWithCustomLogs = TMDB(
       ApiKeys(apiKey, readaccesstoken),
       logConfig: const ConfigLogger(showLogs: true, showErrorLogs: true),
       defaultLanguage: 'pl-PL',
     );
     Map topratedResult = await tmdbWithCustomLogs.v3.movies.getTopRated();
+
     return List<Movie>.from(
         topratedResult['results'].map((movie) => Movie.fromJson(movie)));
   }
 
-  Future<List> getTvPopular() async {
+  Future<List<Movie>> getTvPopular() async {
     TMDB tmdbWithCustomLogs = TMDB(
       ApiKeys(apiKey, readaccesstoken),
       logConfig: const ConfigLogger(showLogs: true, showErrorLogs: true),
