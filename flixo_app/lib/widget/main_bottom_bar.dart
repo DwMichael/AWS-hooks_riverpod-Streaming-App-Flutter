@@ -36,10 +36,18 @@ class _MainBottomBarState extends State<MainBottomBar> {
         preferredSize: Size.fromHeight(50.0),
         child: MainAppBar(),
       ),
-      body: _pages[_currentIndex],
+      body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF2D2D2D), Color(0xFF4A4A4A)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: _pages[_currentIndex]),
       bottomNavigationBar: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        height: widget.isVisible ? 70.0 : 0,
+        height: widget.isVisible ? 80.0 : 0,
         child: BottomNavigationBar(
           elevation: widget.isElevated ? null : 0.0,
           currentIndex: _currentIndex,

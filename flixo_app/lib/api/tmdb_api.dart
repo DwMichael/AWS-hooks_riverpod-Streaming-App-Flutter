@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
@@ -5,6 +6,8 @@ import '../model/genre.dart';
 import '../model/movie.dart';
 
 class TmdbApi {
+  final Dio _dio = Dio();
+  final String baseUrl = 'https://api.themoviedb.org/3';
   final String apiKey = 'b36e3e21d0e7736e57a105307d79ac1f';
   final String readaccesstoken =
       'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMzZlM2UyMWQwZTc3MzZlNTdhMTA1MzA3ZDc5YWMxZiIsInN1YiI6IjY0NmZjMzJlMzM2ZTAxMDEyYWNmMWExMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Oebk-k_Tc1V0j1T5m_eJ5Q2Fv7gKs2jgkB5Hk0vfGFk';
@@ -35,6 +38,17 @@ class TmdbApi {
         result['results'].map((movie) => Movie.fromJson(movie)));
   }
 
+  Future<String> getYoutubeId(int id) async {
+    try {
+      final response = await _dio.get('$baseUrl/movie/$id/videos?$apiKey');
+      var youtubeId = response.data['results'][0]['key'];
+      return youtubeId;
+    } catch (error, stacktrace) {
+      throw Exception(
+          'Exception accoured: $error with stacktrace: $stacktrace');
+    }
+  }
+
   Future<List<Movie>> getMovies() async {
     TMDB tmdbWithCustomLogs = TMDB(
       ApiKeys(apiKey, readaccesstoken),
@@ -42,6 +56,7 @@ class TmdbApi {
       defaultLanguage: 'pl-PL',
     );
     Map result = await tmdbWithCustomLogs.v3.discover.getMovies();
+
     return List<Movie>.from(
         result['results'].map((movie) => Movie.fromJson(movie)));
   }

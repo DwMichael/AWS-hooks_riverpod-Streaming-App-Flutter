@@ -2,16 +2,12 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:flixo_app/pages/authentication/login_page.dart';
-import 'package:flixo_app/pages/authentication/sign_up.dart';
-import 'package:flixo_app/pages/main_pages/download_page.dart';
-import 'package:flixo_app/pages/main_pages/home_page.dart';
-import 'package:flixo_app/pages/main_pages/search_page.dart';
 
 import 'package:flixo_app/theme/theme.dart';
 import 'package:flixo_app/theme/theme_manager.dart';
 import 'package:flixo_app/widget/main_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'amplifyconfiguration.dart';
 
@@ -24,7 +20,7 @@ Future<void> main() async {
   } on AmplifyAlreadyConfiguredException {
     debugPrint('Amplify configuration failed.');
   }
-
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   runApp(
     ProviderScope(
         child: MyApp(
