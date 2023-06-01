@@ -26,7 +26,7 @@ class _MainBottomBarState extends State<MainBottomBar> {
       title: "Search Page",
     ),
     2: const DownLoadPage(),
-    3: const MorePage(),
+    3: MorePage(),
   };
   final bool isVisible = false;
   @override

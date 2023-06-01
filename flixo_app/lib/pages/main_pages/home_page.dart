@@ -46,10 +46,11 @@ class HomePage extends HookConsumerWidget {
           // Use a custom font for the text
           const Text(
             "Odkryj coś nowego",
-            style: TextStyle(fontSize: 20, color: Colors.grey),
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 30, color: Colors.grey),
           ),
           const SizedBox(
-            height: 10,
+            height: 20,
           ),
           MainMoviesRow(
             fetchMovies: () => tmdbApi.getMovies(),
@@ -198,10 +199,8 @@ class MainMoviesRow extends HookConsumerWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       image: DecorationImage(
-                        
                         fit: BoxFit.fill,
                         image: CachedNetworkImageProvider(
-                          
                           'http://image.tmdb.org/t/p/w500${item.posterPath}',
                         ),
                       ),
@@ -211,7 +210,6 @@ class MainMoviesRow extends HookConsumerWidget {
               ),
             )
             .toList(),
-            
         options: CarouselOptions(
             autoPlay: true,
             autoPlayInterval: const Duration(seconds: 8),
@@ -250,7 +248,7 @@ class CategoryColumn extends HookConsumerWidget {
             height: 10,
           ),
           SizedBox(
-            height: 200,
+            height: 220,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: fetchMovies!.length,
@@ -265,7 +263,7 @@ class CategoryColumn extends HookConsumerWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: Container(
-                      width: 125,
+                      width: 145,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                       ),
@@ -278,6 +276,7 @@ class CategoryColumn extends HookConsumerWidget {
                             child: Hero(
                               tag: fetchMovies![index],
                               child: CachedNetworkImage(
+                                filterQuality: FilterQuality.medium,
                                 fit: BoxFit.fitWidth,
                                 imageUrl:
                                     'http://image.tmdb.org/t/p/w500${fetchMovies![index].posterPath}',
@@ -304,6 +303,7 @@ class CategoryColumn extends HookConsumerWidget {
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: StarRating(
+                                  sizeIcon: 17,
                                   rating: fetchMovies![index].rating),
                             ),
                           )

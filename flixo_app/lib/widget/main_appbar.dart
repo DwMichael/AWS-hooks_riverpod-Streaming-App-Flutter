@@ -13,20 +13,26 @@ class MainAppBar extends StatelessWidget {
           horizontal: 5.0,
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
+            const Text(
+              'Flixo',
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w100,
+                  color: Colors.white),
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.65,
+            ),
             SizedBox(
               height: 30,
               child: CircleAvatar(
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    size: 15,
-                    Icons.person,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
+                  child: Image.asset(
+                'assets/image/cat.png',
+                fit: BoxFit.fill,
+              )),
             ),
           ],
         ),

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class StarRating extends StatelessWidget {
   final double rating;
 
-  StarRating({required this.rating});
-  final double sizeIcon = 17;
+  StarRating({required this.sizeIcon, required this.rating});
+  final double sizeIcon;
   Widget buildStar(BuildContext context, int index) {
     Icon icon;
 

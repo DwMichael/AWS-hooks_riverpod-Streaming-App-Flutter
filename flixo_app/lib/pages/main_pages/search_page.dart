@@ -96,6 +96,7 @@ class SearchPage extends HookConsumerWidget {
               itemCount: 6,
               itemBuilder: (BuildContext context, int index) {
                 return CachedNetworkImage(
+                    filterQuality: FilterQuality.low,
                   fit: BoxFit.cover,
                   imageUrl:
                       'http://image.tmdb.org/t/p/w500${randomMovies.data![index].posterPath}',
