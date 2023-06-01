@@ -9,8 +9,10 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../api/tmdb_api.dart';
+import '../../model/cast.dart';
 import '../../model/movie.dart';
 import '../../provider/provider.dart';
+import '../../widget/star_rating.dart';
 
 class DetailPage extends HookConsumerWidget {
   const DetailPage({required this.movie, Key? key}) : super(key: key);
@@ -21,7 +23,9 @@ class DetailPage extends HookConsumerWidget {
     final _controller = useState<VideoPlayerController?>(null);
     final _isPlaying = useState(false);
     final _isImageLoaded = useState(false);
-
+    final TmdbApi tmdbApi = ref.watch(tmdbApiProvider);
+    final castList =
+        useFuture(useMemoized(() => tmdbApi.getCastList(movie.id)));
     void _playVideo() {
       _controller.value = VideoPlayerController.network(
           'https://d1g8hloj55af01.cloudfront.net/vods/kings_of_la_trailer_1_h1080p/mp4/kings_of_la_trailer_1_h1080p.mp4')
@@ -105,11 +109,6 @@ class DetailPage extends HookConsumerWidget {
                                   ? 1.0
                                   : 0.0,
                               duration: const Duration(milliseconds: 300),
-
-                              // transform:
-                              //     !_isPlaying.value && _isImageLoaded.value
-                              //         ? Matrix4.identity()
-                              //         : Matrix4.diagonal3Values(1.5, 1.5, 1),
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 180.0),
                                 child: Column(
@@ -138,6 +137,62 @@ class DetailPage extends HookConsumerWidget {
                       ),
                   ],
                 ),
+              ),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              sliver: SliverToBoxAdapter(
+                child: SizedBox(
+                    width: double.infinity,
+                    height: 65,
+                    child: StarRating(sizeIcon: 40, rating: movie.rating)),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: Center(
+                child: Text(
+                  "Opis",
+                  style: TextStyle(fontSize: 20, color: Colors.black),
+                ),
+              ),
+            ),
+            SliverPadding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 18),
+              sliver: SliverToBoxAdapter(
+                child: Center(
+                  child: Text(
+                    movie.overview,
+                    style: const TextStyle(fontSize: 12, color: Colors.black),
+                  ),
+                ),
+              ),
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Container(
+                    height: 200.0,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: castList.data!.length,
+                          separatorBuilder: (context, index) =>
+                              const VerticalDivider(
+                            color: Colors.transparent,
+                            width: 5,
+                          ),
+                          itemBuilder: (BuildContext context, int index) {
+                            return Text(castList.data![index].name);
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
