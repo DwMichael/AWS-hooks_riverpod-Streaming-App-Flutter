@@ -45,7 +45,7 @@ class HomePage extends HookConsumerWidget {
           ),
           // Use a custom font for the text
           const Text(
-            "Odkryj coś nowego",
+            "Discover something new",
             style: TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 30, color: Colors.grey),
           ),
@@ -179,7 +179,7 @@ class MainMoviesRow extends HookConsumerWidget {
     final current = useState(0);
     if (movies.data == null) {
       return SizedBox(
-        height: MediaQuery.of(context).size.height * 0.35,
+        height: 500,
         child: const Align(
           alignment: Alignment.center,
           child: CircularProgressIndicator(),
@@ -214,7 +214,7 @@ class MainMoviesRow extends HookConsumerWidget {
             autoPlay: true,
             autoPlayInterval: const Duration(seconds: 8),
             enlargeCenterPage: false,
-            aspectRatio: deviceHeight < 800 ? 2.0 : 1.4,
+            aspectRatio: deviceHeight < 800 ? 1.8 : 1.2,
             onPageChanged: (index, reason) {
               current.value = index;
             }),

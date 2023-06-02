@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:http/http.dart' as http;
@@ -11,8 +13,11 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../provider/movie.dart';
 import '../../provider/video_provider.dart';
+import '../side_pages/video_player_screen.dart';
 
 final animatedListKey = GlobalKey<AnimatedListState>();
+
+final path = ValueNotifier('');
 
 class DownLoadPage extends HookConsumerWidget {
   static const routName = "/downl";
@@ -21,7 +26,9 @@ class DownLoadPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    void downloadVideo(
+    StreamSubscription? _subscription;
+
+    Future<Map<String, String>> downloadVideo(
       BuildContext context,
       WidgetRef ref,
     ) async {
@@ -37,7 +44,7 @@ class DownLoadPage extends HookConsumerWidget {
       // Create a stream to track the progress of the download
       final bytesStream = response.stream.asBroadcastStream();
       int bytesReceived = 0;
-      bytesStream.listen((chunk) {
+      _subscription = bytesStream.listen((chunk) {
         // Update the number of bytes received
         bytesReceived += chunk.length;
 
@@ -52,19 +59,32 @@ class DownLoadPage extends HookConsumerWidget {
       final status = await Permission.storage.request();
       if (status.isGranted) {
         final externalDir = await getExternalStorageDirectory();
+        path.value = '${externalDir!.path}/vader.mp4';
         final file = File('${externalDir!.path}/vader.mp4');
         await file.create(recursive: true);
         await for (final chunk in bytesStream) {
           file.writeAsBytesSync(chunk, mode: FileMode.append);
         }
+        return {'filePath': file.path, 'externalDirPath': externalDir.path};
       } else {
-        // Handle permission denied
+        return {};
       }
+    }
+
+    void cancelDownload() {
+      _subscription?.cancel();
     }
 
     final movieList = ref.watch(movieListProvider);
 
     final progress = ref.watch(downloadProgressProvider);
+    final isFinished = useState(progress == 1.0);
+
+    useEffect(() {
+      isFinished.value = progress == 1.0;
+      return cancelDownload;
+    }, [progress]);
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: AnimatedList(
@@ -117,30 +137,31 @@ class DownLoadPage extends HookConsumerWidget {
                                 SizedBox(
                                   height: 50,
                                   width: MediaQuery.of(context).size.width,
-                                  child: Stack(
-                                    children: [
-                                      Text(
-                                        movie.title,
-                                        style: const TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white),
-                                      ),
-                                      Positioned(
-                                        left:
-                                            MediaQuery.of(context).size.width *
-                                                0.3,
-                                        bottom: 10,
-                                        child: IconButton(
+                                  child: FittedBox(
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          movie.title,
+                                          style: const TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        ),
+                                        IconButton(
                                             onPressed: () {
+                                              ref
+                                                  .read(downloadProgressProvider
+                                                      .notifier)
+                                                  .updateProgress(0.0);
+
                                               deleteMovie(ref, index);
                                             },
                                             icon: const Icon(
                                               Icons.delete,
                                               color: Colors.red,
-                                            )),
-                                      )
-                                    ],
+                                            ))
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(
@@ -159,19 +180,44 @@ class DownLoadPage extends HookConsumerWidget {
                                         ),
                                       ),
                                     ),
-                                    child: ElevatedButton.icon(
-                                        label: const Text(
-                                          'Click to Start Download',
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              color: Colors.white),
-                                        ),
-                                        onPressed: () =>
-                                            downloadVideo(context, ref),
-                                        icon: const Icon(
-                                          Icons.download_for_offline_outlined,
-                                          color: Colors.white,
-                                        )),
+                                    child: isFinished.value
+                                        ? ElevatedButton.icon(
+                                            label: const Text(
+                                              'Download Finished',
+                                              style: TextStyle(
+                                                  fontSize: 10,
+                                                  color: Colors.white),
+                                            ),
+                                            onPressed: () async {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      VideoPlayerScreen(),
+                                                ),
+                                              );
+                                            },
+                                            icon: const Icon(
+                                              Icons.download_done_outlined,
+                                              color: Colors.black,
+                                            ),
+                                          )
+                                        : ElevatedButton.icon(
+                                            label: const Text(
+                                              'Click to Start Download',
+                                              style: TextStyle(
+                                                  fontSize: 10,
+                                                  color: Colors.white),
+                                            ),
+                                            onPressed: () {
+                                              downloadVideo(context, ref);
+                                            },
+                                            icon: const Icon(
+                                              Icons
+                                                  .download_for_offline_outlined,
+                                              color: Colors.white,
+                                            ),
+                                          ),
                                   ),
                                 ),
                                 const SizedBox(

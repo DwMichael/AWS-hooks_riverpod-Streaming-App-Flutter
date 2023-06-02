@@ -92,21 +92,27 @@ class DetailPage extends HookConsumerWidget {
                             ),
                             child: _controller.value != null
                                 ? VideoPlayer(_controller.value!)
-                                : CachedNetworkImage(
-                                    imageUrl:
-                                        'https://image.tmdb.org/t/p/original/${movie.posterPath}',
-                                    imageBuilder: (context, imageProvider) {
-                                      WidgetsBinding.instance!
-                                          .addPostFrameCallback((_) {
-                                        _isImageLoaded.value = true;
-                                      });
-                                      return Image(
-                                          width: double.infinity,
-                                          fit: BoxFit.cover,
-                                          image: imageProvider);
-                                    },
-                                    errorWidget: (context, url, error) =>
-                                        const Icon(Icons.error),
+                                : ColorFiltered(
+                                    colorFilter: ColorFilter.mode(
+                                      Colors.black.withOpacity(0.6),
+                                      BlendMode.darken,
+                                    ),
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                          'https://image.tmdb.org/t/p/original/${movie.posterPath}',
+                                      imageBuilder: (context, imageProvider) {
+                                        WidgetsBinding.instance!
+                                            .addPostFrameCallback((_) {
+                                          _isImageLoaded.value = true;
+                                        });
+                                        return Image(
+                                            width: double.infinity,
+                                            fit: BoxFit.cover,
+                                            image: imageProvider);
+                                      },
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
+                                    ),
                                   ),
                           ),
                           if (_isImageLoaded.value)
