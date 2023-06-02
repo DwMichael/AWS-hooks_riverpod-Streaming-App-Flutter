@@ -7,8 +7,6 @@ import '../../provider/aws.dart';
 class MorePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final auth = ref.watch(authProvider);
-
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Padding(

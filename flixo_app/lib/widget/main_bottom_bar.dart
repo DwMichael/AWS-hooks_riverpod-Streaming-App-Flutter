@@ -81,7 +81,7 @@ class _MainBottomBarState extends State<MainBottomBar> {
           ? FloatingActionButton(
               onPressed: () {},
               tooltip: 'Add New Item',
-              elevation: true ? 10.0 : null,
+              elevation: 10.0,
               child: const Icon(Icons.add),
             )
           : null,

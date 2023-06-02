@@ -33,7 +33,7 @@ class DownLoadPage extends HookConsumerWidget {
       WidgetRef ref,
     ) async {
       // Replace with your video URL
-      final String url =
+      const String url =
           'https://firebasestorage.googleapis.com/v0/b/caffee-2e82e.appspot.com/o/Brutalna%20scena%20usuni%C4%99ta%20z%20Gwiezdnych%20wojen.%20Dlaczego%20bano%20si%C4%99%20pokaza%C4%87%20j%C4%85%20widzom_%20Star%20Wars%20Historie.mp4?alt=media&token=a9b43d17-74e9-4632-b298-f8235561755a&_gl=1*1h64845*_ga*Njg5MTk0MDExLjE2Nzg5Njk4Mzc.*_ga_CW55HF8NVT*MTY4NTY0MDcwMi4zLjEuMTY4NTY0MTQ2OS4wLjAuMA..';
       final request = http.Request('GET', Uri.parse(url));
       final response = await request.send();
@@ -60,7 +60,7 @@ class DownLoadPage extends HookConsumerWidget {
       if (status.isGranted) {
         final externalDir = await getExternalStorageDirectory();
         path.value = '${externalDir!.path}/vader.mp4';
-        final file = File('${externalDir!.path}/vader.mp4');
+        final file = File('${externalDir.path}/vader.mp4');
         await file.create(recursive: true);
         await for (final chunk in bytesStream) {
           file.writeAsBytesSync(chunk, mode: FileMode.append);

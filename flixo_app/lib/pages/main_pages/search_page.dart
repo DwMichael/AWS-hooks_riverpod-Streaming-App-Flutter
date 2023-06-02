@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:tmdb_api/tmdb_api.dart';
 
 import '../../api/tmdb_api.dart';
 import '../../model/genre.dart';
@@ -12,7 +11,6 @@ import '../../provider/category.dart';
 import '../../provider/provider.dart';
 import '../../widget/star_rating.dart';
 import '../side_pages/detail_page.dart';
-import 'home_page.dart';
 
 final ValueNotifier<int> selectedButton = useState(0);
 
@@ -62,12 +60,13 @@ class SearchPage extends HookConsumerWidget {
                                   ref.watch(selectedGenreProvider) == genre.id
                                       ? Colors.red
                                       : Colors.white,
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                             ),
                           ),
                         ),
                         child: ElevatedButton(
                             onPressed: () {
+                              // ignore: invalid_use_of_protected_member
                               ref.read(selectedGenreProvider.notifier).state =
                                   genre.id;
                             },
@@ -87,6 +86,7 @@ class SearchPage extends HookConsumerWidget {
                 ],
               ),
             ),
+            // ignore: invalid_use_of_protected_member
             ref.read(selectedGenreProvider.notifier).state != 0
                 ? const CategoryColumnSearch()
                 : Padding(
