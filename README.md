@@ -7,7 +7,6 @@ We use REST API from TMDB to fetch news movies to our app.
 
 App let you watch, download your favourite move/serial/TV show
 
-Its still(WIP)
 
 
 SignIn AWS Amplify
