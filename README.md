@@ -1,11 +1,7 @@
-# Streaming-App-Flutter
-Streaming App that is clone of apps like Netflix/Disney+/Amazon Prime
+Streaming-App-Flutter
+This is a streaming app that is a clone of apps like Netflix/Disney+/Amazon Prime. It uses AWS as Database service and the newest Riverpod with hooks packaged. The app also uses REST API from TMDB to fetch new movies to the app. The app lets you watch and download your favorite movies, serials and TV shows.
 
-Its use AWS as Database service.
-App use newest Riverpod with hooks packaged.
-We use REST API from TMDB to fetch news movies to our app.
-
-App let you watch, download your favourite move/serial/TV show
+The app has a Home Page, Search Page, Detail Page and Download Page. You can sign in using AWS Amplify.
 
 
 
